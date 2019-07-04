@@ -217,4 +217,21 @@ describe('Evaluator', () => {
     injectedElement.innerHTML = userInputHtml3;
     assert.ok(domEquality(liveDom.domNode, injectedElement));
   });
+
+  it('creates attributes', () => {
+    const userInputHtml1 = `
+      <div></div>
+    `;
+    const userInputHtml2 = `
+      <div id="someId" foo="bar"></div>
+    `;
+    const liveDom = new LiveDom({
+      html: userInputHtml1,
+      domNode: global.document.createElement('div')
+    });
+    liveDom.setHtml(userInputHtml2);
+    const injectedElement = global.document.createElement('div');
+    injectedElement.innerHTML = userInputHtml2;
+    assert.ok(domEquality(liveDom.domNode, injectedElement));
+  });
 });

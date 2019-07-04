@@ -31,7 +31,7 @@ function visitNode(astNode, domNode, parent) {
         domNode.setAttribute(name, astNode.attributes[name]);
       }
     }
-    if (domNode.attributes.length > astNode.attributes.length) {
+    if (domNode.attributes.length < Object.keys(astNode.attributes).length) {
       // attribute as been created
       Object.keys(astNode.attributes)
         .filter(key => !domNode.hasAttribute(key))
