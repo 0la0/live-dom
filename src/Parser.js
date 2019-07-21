@@ -9,8 +9,10 @@ const parserOptions = {
 const transformToAstNode = (oldNode, currentNode) => {
   if (currentNode.type === 'JSXElement') {
     const name = currentNode.openingElement.name.name;
-    const attributes = currentNode.openingElement.attributes.reduce((attrs, attribute) => 
-      Object.assign(attrs, { [attribute.name.name]: attribute.value.value }), {});
+    const attributes = currentNode.openingElement.attributes.reduce((attrs, attribute) => {
+      const attributeValue = (attribute.value && attribute.value.value) || '';
+      return Object.assign(attrs, { [attribute.name.name]: attributeValue });
+    }, {});
     const element = new AstNode(name, attributes);
   
     oldNode.push(element);

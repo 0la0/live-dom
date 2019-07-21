@@ -6,22 +6,23 @@ function wrapHtmlStringInDiv(htmlString) {
 }
 
 export default class LiveDom {
-  constructor({ html = '', domNode }) {
+  constructor({ html = '', domNode, evalWrapperFn = wrapHtmlStringInDiv }) {
     if (!domNode || !(domNode instanceof window.HTMLElement)) {
       throw new Error('LiveDom constructor requires a dom node');
     }
     this.domNode = domNode;
     this.html = html;
-    if (this.domNode.children.length) {
-      [ ...this.domNode.children].forEach(child => this.domNode.removeChild(child));
-    }
+    this.evalWrapperFn = evalWrapperFn;
+    // if (this.domNode.children.length) {
+    //   [ ...this.domNode.children].forEach(child => this.domNode.removeChild(child));
+    // }
     if (html) {
       this.setHtml(html);
     }
   }
 
   setHtml(htmlString) {
-    const wrappedHtmlString = wrapHtmlStringInDiv(htmlString);
+    const wrappedHtmlString = this.evalWrapperFn(htmlString);
     try {
       const ast = parseToAst(wrappedHtmlString);
       if (ast.length > 1) {

@@ -234,4 +234,49 @@ describe('Evaluator', () => {
     injectedElement.innerHTML = userInputHtml2;
     assert.ok(domEquality(liveDom.domNode, injectedElement));
   });
+
+  it('handles attributes without values', () => {
+    const userInputHtml = `
+      <div foo></div>
+    `;
+    const liveDom = new LiveDom({
+      html: userInputHtml,
+      domNode: global.document.createElement('div')
+    });
+    const injectedElement = global.document.createElement('div');
+    injectedElement.innerHTML = userInputHtml;
+    assert.ok(domEquality(liveDom.domNode, injectedElement));
+  });
+
+  it('handles livedomignore key attribute', () => {
+    const userInputHtml1 = `
+      <div id="foo"></div>
+    `;
+    const userInputHtml2 = `
+      <div id="bar"></div>
+    `;
+    const expectedHtml1 = `
+      <div livedomignore id="cool"></div>
+      <div id="foo"></div>
+    `;
+    const expectedHtml2 = `
+      <div livedomignore id="cool"></div>
+      <div id="bar"></div>
+    `;
+    const domNode = global.document.createElement('div');
+    const terminateNode = global.document.createElement('div');
+    terminateNode.setAttribute('livedomignore', '');
+    terminateNode.setAttribute('id', 'cool');
+    domNode.appendChild(terminateNode);
+    const liveDom = new LiveDom({
+      html: userInputHtml1,
+      domNode
+    });
+    const injectedElement = global.document.createElement('div');
+    injectedElement.innerHTML = expectedHtml1;
+    assert.ok(domEquality(liveDom.domNode, injectedElement));
+    liveDom.setHtml(userInputHtml2);
+    injectedElement.innerHTML = expectedHtml2;
+    assert.ok(domEquality(liveDom.domNode, injectedElement));
+  });
 });

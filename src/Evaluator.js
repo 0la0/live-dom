@@ -1,10 +1,19 @@
+const terminalAttr = 'livedomignore';
+
 function visitRootNode(astNode, domNode) {
   // TODO: need to use the same child diff method as below
   if (domNode.children.length > astNode.children.length) {
     // remove children
-    [ ...domNode.children].slice(astNode.children.length).forEach(child => domNode.removeChild(child));
+    [ ...domNode.children]
+      .filter(child => !child.hasAttribute(terminalAttr))
+      .slice(astNode.children.length)
+      .forEach(child => {
+        domNode.removeChild(child);
+      });
   }
-  astNode.children.forEach((child, index) => visitNode(child, domNode.children[index], domNode));
+  const domNodeChildren = [...domNode.children]
+    .filter(child => !child.hasAttribute(terminalAttr));
+  astNode.children.forEach((child, index) => visitNode(child, domNodeChildren[index], domNode));
 }
 
 function visitNode(astNode, domNode, parent) {
