@@ -13,12 +13,13 @@ run linter: `npm run lint`
 ```js
 import LiveDom from 'live-dom';
 
-const targetElement = document.getElementById('foo');
+const domNode = document.getElementById('foo'); // render input to this DOM node
 
-const liveDom = new LiveDom({
-  domNode: targetElement, // render input to this DOM node
-  htmlString: '<p>hello</p>', // optional string
-});
+const liveDom = new LiveDom({ domNode });
+
+// or initialize with an html string
+// new LiveDom({ domNode, htmlString: '<p>hello</p>' })
 
 liveDom.setHtml('<p id="cool">hello</p>'); // apply document changes
+liveDom.setHtml('<p id="something-else">hello</p>'); // apply more changes
 ```
