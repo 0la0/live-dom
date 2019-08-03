@@ -1,7 +1,7 @@
 {
-  "name": "live-vdom",
+  "name": "live-dom",
   "version": "0.0.1",
-  "description": "A minimal v-dom implementation for live evaluation",
+  "description": "A lightweight HTML parser & virtual DOM implementation intended for live coding",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint src test",
