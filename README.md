@@ -1,9 +1,8 @@
 # Live-DOM
 A lightweight HTML parser & virtual DOM implementation intended for live coding
 
-## Install / Build
-install dependencies: `npm i`  
-build: `npm run build`  
+## Build scripts
+install dependencies: `npm install`  
 run tests: `npm test`  
 run linter: `npm run lint`  
 
