@@ -313,4 +313,23 @@ describe('Evaluator', () => {
     injectedElement.innerHTML = expectedHtml2;
     assert.ok(domEquality(liveDom.domNode, injectedElement));
   });
+
+  it('dispose', () => {
+    const userInputHtml = `
+      <div id="someId" class="hello world" test="a-value">
+        <p></p>
+      </div>
+    `;
+    const liveDom = new LiveDom({
+      html: userInputHtml,
+      domNode: global.document.createElement('div')
+    });
+    const injectedElement = global.document.createElement('div');
+    injectedElement.innerHTML = userInputHtml;
+    assert.ok(domEquality(liveDom.domNode, injectedElement));
+
+    liveDom.dispose();
+    injectedElement.innerHTML = '';
+    assert.ok(domEquality(liveDom.domNode, injectedElement));
+  });
 });

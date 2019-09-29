@@ -38,4 +38,17 @@ export default class LiveDom {
       return false;
     }
   }
+
+  dispose() {
+    [ ...this.domNode.children].forEach(child => this.domNode.removeChild(child));
+    setTimeout(() => {
+      if (this.domNode.parentElement) {
+        this.domNode.parentElement.removeChild(this.domNode);
+      }
+      this.domNode = null;
+      this.html = null;
+      this.evalWrapperFn = null;
+      this.lastAst = null;
+    });
+  }
 }
