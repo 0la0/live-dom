@@ -21,4 +21,6 @@ const liveDom = new LiveDom({ domNode });
 
 liveDom.setHtml('<p id="cool">hello</p>'); // apply document changes
 liveDom.setHtml('<p id="something-else">hello</p>'); // apply more changes
+
+liveDom.dispose(); // clears dom node, removes dom node if it is attached to a parent
 ```
