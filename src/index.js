@@ -1,8 +1,9 @@
 import parseToAst from './Parser';
 import astToDom from './Evaluator';
+import LiveDomSubmissionResult from './LiveDomSubmissionResult';
 
 function wrapHtmlStringInDiv(htmlString) {
-  return `<div>${htmlString}</div>`;
+  return `<div>\n${htmlString}\n</div>`;
 }
 
 export default class LiveDom {
@@ -32,10 +33,9 @@ export default class LiveDom {
       astToDom(ast[0], lastAstRoot, this.domNode, undefined);
 
       this.lastAst = ast;
-      return true;
+      return new LiveDomSubmissionResult(true);
     } catch (error) {
-      console.log(error);
-      return false;
+      return new LiveDomSubmissionResult(false, error.message);
     }
   }
 

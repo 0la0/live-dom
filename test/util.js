@@ -19,7 +19,6 @@ function attributeEquality(node1, node2) {
 
 function childEquality(node1, node2) {
   if (node1.children.length !== node2.children.length) {
-    console.log('child length equality failed');
     return false;
   }
   return [...node1.children].every((child, index) => domEquality(child, node2.children[index]));
