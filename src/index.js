@@ -2,8 +2,19 @@ import parseToAst from './Parser';
 import astToDom from './Evaluator';
 import LiveDomSubmissionResult from './LiveDomSubmissionResult';
 
+const SINGLE_LINE_COMMENT = /^\s*\/\//;
+
 function wrapHtmlStringInDiv(htmlString) {
   return `<div>\n${htmlString}\n</div>`;
+}
+
+function getHtmlWithoutComments(htmlString) {
+  return htmlString.split('\n')
+    .filter(line => {
+      const isSingleLineComment = line.match(SINGLE_LINE_COMMENT);
+      return !isSingleLineComment;
+    })
+    .join('\n');
 }
 
 export default class LiveDom {
@@ -22,7 +33,8 @@ export default class LiveDom {
     }
   }
 
-  setHtml(htmlString) {
+  setHtml(rawHtmlString = '') {
+    const htmlString = getHtmlWithoutComments(rawHtmlString);
     const wrappedHtmlString = this.evalWrapperFn(htmlString);
     try {
       const ast = parseToAst(wrappedHtmlString);

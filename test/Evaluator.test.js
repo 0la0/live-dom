@@ -363,4 +363,52 @@ describe('Evaluator', () => {
     assert.ok(!result.ok);
     assert.equal(result.message, 'Expected corresponding JSX closing tag for <p> (3:0)');
   });
+
+  it('handles single line JSX comments', () => {
+    const userInputHtml = `
+      <div id="someId" class="hello world" test="a-value">
+        // <p></p>
+        <ul></ul>
+        // <p></p>
+        <aside></aside>
+      </div>
+    `;
+    const expectedHtml = `
+      <div id="someId" class="hello world" test="a-value">
+        <ul></ul>
+        <aside></aside>
+      </div>
+    `;
+    const liveDom = new LiveDom({
+      html: userInputHtml,
+      domNode: global.document.createElement('div')
+    });
+    const injectedElement = global.document.createElement('div');
+    injectedElement.innerHTML = expectedHtml;
+    assert.ok(domEquality(liveDom.domNode, injectedElement));
+  });
+
+  it('handles single line JSX comments', () => {
+    const userInputHtml = `
+      <div id="someId" class="hello world" test="a-value">
+        // <div>
+          <p></p>
+          <ul></ul>
+        // </div>
+      </div>
+    `;
+    const expectedHtml = `
+      <div id="someId" class="hello world" test="a-value">
+        <p></p>
+        <ul></ul>
+      </div>
+    `;
+    const liveDom = new LiveDom({
+      html: userInputHtml,
+      domNode: global.document.createElement('div')
+    });
+    const injectedElement = global.document.createElement('div');
+    injectedElement.innerHTML = expectedHtml;
+    assert.ok(domEquality(liveDom.domNode, injectedElement));
+  });
 });

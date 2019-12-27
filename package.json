@@ -10,7 +10,7 @@
   "author": "Luke Anderson",
   "license": "ISC",
   "dependencies": {
-    "@babel/parser": "^7.4.5"
+    "@babel/parser": "^7.7.7"
   },
   "devDependencies": {
     "eslint": "^6.0.0",
