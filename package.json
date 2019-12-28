@@ -1,6 +1,6 @@
 {
   "name": "live-dom",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A lightweight HTML parser & virtual DOM implementation intended for live coding",
   "main": "src/index.js",
   "scripts": {
