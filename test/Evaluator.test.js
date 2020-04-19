@@ -1,6 +1,6 @@
 import assert from 'assert';
-import { buildNewWindow, domEquality } from './util';
-import LiveDom from '../src/index';
+import { buildNewWindow, domEquality } from './util.js';
+import LiveDom from '../src/index.js';
 
 describe('Evaluator', () => {
   beforeEach(() => {

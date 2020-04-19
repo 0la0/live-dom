@@ -1,6 +1,6 @@
-import parseToAst from './Parser';
-import astToDom from './Evaluator';
-import LiveDomSubmissionResult from './LiveDomSubmissionResult';
+import parseToAst from './Parser.js';
+import astToDom from './Evaluator.js';
+import LiveDomSubmissionResult from './LiveDomSubmissionResult.js';
 
 const SINGLE_LINE_COMMENT = /^\s*\/\//;
 

@@ -5,17 +5,17 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint src test",
-    "test": "mocha -r esm test/*.test.js"
+    "test": "mocha test/*.test.js"
   },
   "author": "Luke Anderson",
   "license": "ISC",
+  "type": "module",
   "dependencies": {
-    "@babel/parser": "^7.7.7"
+    "@babel/parser": "^7.9.4"
   },
   "devDependencies": {
-    "eslint": "^6.0.0",
-    "esm": "^3.2.25",
-    "jsdom": "^15.1.1",
-    "mocha": "^6.1.4"
+    "eslint": "^7.0.0-alpha.3",
+    "jsdom": "^16.2.2",
+    "mocha": "^7.1.1"
   }
 }

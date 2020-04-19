@@ -1,5 +1,5 @@
-import * as BabelParser from '@babel/parser';
-import AstNode from './AstNode';
+import BabelParser from '@babel/parser';
+import AstNode from './AstNode.js';
 
 const parserOptions = {
   sourceType: 'module',

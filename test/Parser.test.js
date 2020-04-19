@@ -1,6 +1,6 @@
 import assert from 'assert';
-import parseToAst from '../src/Parser';
-import AstNode from '../src/AstNode';
+import parseToAst from '../src/Parser.js';
+import AstNode from '../src/AstNode.js';
 
 describe('Parser', () => {
   it('throws if first argument is not string', () => {
