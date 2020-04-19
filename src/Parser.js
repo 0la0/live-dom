@@ -1,4 +1,4 @@
-import BabelParser from '@babel/parser';
+import * as BabelParser from '@babel/parser';
 import AstNode from './AstNode.js';
 
 const parserOptions = {
