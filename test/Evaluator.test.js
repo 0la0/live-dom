@@ -411,4 +411,51 @@ describe('Evaluator', () => {
     injectedElement.innerHTML = expectedHtml;
     assert.ok(domEquality(liveDom.domNode, injectedElement));
   });
+
+  it('handles single line HTML comments', () => {
+    const userInputHtml = `
+      <div id="someId" class="hello world" test="a-value">
+        <!-- <p>foo</p> -->
+        <p>bar</p>
+        <!-- <p>hello</p> -->
+        <p>world</p>
+      </div>
+    `;
+    const expectedHtml = `
+      <div id="someId" class="hello world" test="a-value">
+        <p>bar</p>
+        <p>world</p>
+      </div>
+    `;
+    const liveDom = new LiveDom({
+      html: userInputHtml,
+      domNode: global.document.createElement('div')
+    });
+    const injectedElement = global.document.createElement('div');
+    injectedElement.innerHTML = expectedHtml;
+    assert.ok(domEquality(liveDom.domNode, injectedElement));
+  });
+
+  it('handles multi-line HTML comments', () => {
+    const userInputHtml = `
+      <div id="someId" class="hello world" test="a-value">
+        <!-- <p>foo</p>
+        <p>bar</p>  -->
+        <!-- <p>hello</p> -->
+        <p>world</p>
+      </div>
+    `;
+    const expectedHtml = `
+      <div id="someId" class="hello world" test="a-value">
+        <p>world</p>
+      </div>
+    `;
+    const liveDom = new LiveDom({
+      html: userInputHtml,
+      domNode: global.document.createElement('div')
+    });
+    const injectedElement = global.document.createElement('div');
+    injectedElement.innerHTML = expectedHtml;
+    assert.ok(domEquality(liveDom.domNode, injectedElement));
+  });
 });

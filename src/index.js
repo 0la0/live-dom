@@ -2,19 +2,24 @@ import parseToAst from './Parser.js';
 import astToDom from './Evaluator.js';
 import LiveDomSubmissionResult from './LiveDomSubmissionResult.js';
 
-const SINGLE_LINE_COMMENT = /^\s*\/\//;
+const SINGLE_LINE_JSX_COMMENT = /^\s*\/\//;
+const HTML_COMMENT = /<!--(.|\n)*?-->/g;
 
 function wrapHtmlStringInDiv(htmlString) {
   return `<div>\n${htmlString}\n</div>`;
 }
 
-function getHtmlWithoutComments(htmlString) {
+function getHtmlWithoutSingleLineJsxComments(htmlString = '') {
   return htmlString.split('\n')
     .filter(line => {
-      const isSingleLineComment = line.match(SINGLE_LINE_COMMENT);
+      const isSingleLineComment = line.match(SINGLE_LINE_JSX_COMMENT);
       return !isSingleLineComment;
     })
     .join('\n');
+}
+
+function getHtmlWithoutHtmlComments(htmlString = '') {
+  return htmlString.replace(HTML_COMMENT, '');
 }
 
 export default class LiveDom {
@@ -34,7 +39,7 @@ export default class LiveDom {
   }
 
   setHtml(rawHtmlString = '') {
-    const htmlString = getHtmlWithoutComments(rawHtmlString);
+    const htmlString = getHtmlWithoutSingleLineJsxComments(getHtmlWithoutHtmlComments(rawHtmlString));
     const wrappedHtmlString = this.evalWrapperFn(htmlString);
     try {
       const ast = parseToAst(wrappedHtmlString);
